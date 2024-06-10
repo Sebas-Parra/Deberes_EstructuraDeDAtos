@@ -5,13 +5,16 @@ bool validarCedula(string cedula);
 
 int main(){
     string cedula;
+    //Se pide al usuario que digite la cedula
     cout<<"Digite la cedula: "<<endl;
     cin>>cedula;
-
+    //Se verifica que la cedula es rechazada o aceptada
     validarCedula(cedula);
 
     return 0;
  };
+
+ //Validador de cedula
 bool validarCedula(string cedula) {
     if (cedula.length() != 10) {
         cout<<"Cedula rechazada";
