@@ -65,7 +65,7 @@ int main() {
                 }
             }while(!validado);
             
-            lista->insertar(Persona(nombre1,nombre2,apellido,cedula));
+            lista->insertar(Persona(nombre1,nombre2,apellido,cedula,""));
 
             break;
         case 2:

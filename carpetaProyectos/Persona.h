@@ -8,11 +8,12 @@ using namespace std;
 
 class Persona{
 public:
-    Persona(string nombre1,string nombre2,string apellido, string cedula);
+    Persona(string nombre1,string nombre2,string apellido, string cedula,string correo);
     string generarSecuenciaNombre();
     friend ::ostream& operator<<(std::ostream& os, const Persona& persona);
     string nombre1;
     string nombre2;
     string apellido;
     string cedula;
+    string correo;
 };
