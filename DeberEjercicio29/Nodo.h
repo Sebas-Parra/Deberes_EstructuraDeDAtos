@@ -19,11 +19,28 @@ private:
     T persona;
     Nodo<T>* siguiente;
 public:
-    Nodo(T);
+    /*Nodo(T);
     void setDato(T);
     T getDato();
     void setSiguiente(Nodo<T>*);
     Nodo<T>* getSiguiente();
-    friend class ListaSimples;
+    friend class ListaSimples;*/
+Nodo(T per) :persona(per), siguiente(nullptr){}
+
+inline void setDato(T per) {
+    persona = per;
+}
+
+T getDato() {
+    return persona;
+}
+
+void setSiguiente(Nodo<T>* _siguiente) {
+    siguiente = _siguiente;
+}
+
+ Nodo<T>* getSiguiente() {
+    return siguiente;
+}
 };
 
