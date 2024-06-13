@@ -6,6 +6,7 @@
 using namespace std;
 
 bool esEntero(string);
+bool validarCedula(string);
 
 int main() {
     ListaEnlazadaSimple* lista = new ListaEnlazadaSimple();
@@ -14,11 +15,14 @@ int main() {
     bool rep = true;
     bool repite = true;
     bool repetir = true;
-    string nombre;
+    string nombre,nombre2,apellido,cedula;
+    bool validado = false;
+    string contraseña;
 
     do {
-        system("cls");
-        cout << "***********Listas Simples***********" << endl;
+
+        //system("cls");
+        cout << "\n***********Listas Simples***********" << endl;
         cout << "1. Insertar" << endl;
         cout << "2. Mostrar" << endl;
         cout << "3. Salir" << endl;
@@ -41,19 +45,76 @@ int main() {
         opcion = atoi(linea.c_str());
         switch (opcion) {
         case 1:
-            cout<<"Ingrese el nombre: "<<endl;
+            cout<<"Ingrese el nombre1: "<<endl;
             cin>>nombre;
-            lista->insertar(Persona(nombre));
+            cout<<"Ingrese el nombre2: "<<endl;
+            cin>>nombre2;
+            cout<<"Digite el apellido: "<<endl;
+            cin>>apellido;
+            do{
+                cout<<"\nIngrese la cedula: "<<endl;
+                cin>>cedula;
+            
+                if(validarCedula(cedula)){
+                    validado = true;
+                }else {  
+                    validado = false;
+                }
+            }while(!validado);
+            cout<<"\tEl password es: "<<lista->generatePassword(Persona(nombre,nombre2,apellido,cedula,""));
+            cout<<"\tEncriptado es: "<<lista->encryptCesar(Persona(nombre,nombre2,apellido,cedula,""));
+            lista->insertar(Persona(nombre,nombre2,apellido,cedula,""));
             break;
+
         case 2:
         lista->mostrar();
             break; 
         }
-        system("pause");
-    } while (opcion != 2);
+        //system("pause");
+    } while (opcion != 3);
     return 0;
 }
+bool validarCedula(string cedula) {
+    if (cedula.length() != 10) {
+        cout<<"Cedula rechazada";
+        return false;
+    }
 
+    for (char c : cedula) {
+        if (!isdigit(c)) {
+            cout<<"Cedula rechazada";
+            return false;
+        }
+    }
+
+    int provincia = stoi(cedula.substr(0, 2));
+    if (provincia < 1 || provincia > 24) {
+        cout<<"Cedula rechazada";
+        return false;
+    }
+
+    int verificador = cedula[9] - '0';
+    int suma = 0;
+    for (int i = 0; i < 9; ++i) {
+        int digito = cedula[i] - '0';
+        if (i % 2 == 0) {
+            digito *= 2;
+            if (digito > 9) {
+                digito -= 9;
+            }
+        }
+        suma += digito;
+    }
+
+    int TOTAL = ((suma / 10) + 1) * 10;
+    if ((TOTAL - suma == verificador) || (verificador == 0 && TOTAL - suma == 10)) {
+        cout<<"Cedula aceptada";
+        return true;
+    }
+
+    return false;
+    cout<<"Cedula rechazada";
+}
 //Fucion para validar
 bool esEntero(string linea) {
     bool esEntero = true;
